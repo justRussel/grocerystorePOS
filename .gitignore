@@ -1,0 +1,34 @@
+# Dependencies
+/vendor/
+
+# Composer lock (keep if you want reproducible installs, remove otherwise)
+# composer.lock
+
+# Exported files (generated at runtime)
+/exports/pdf/*.pdf
+/exports/excel/*.xlsx
+/exports/excel/*.xls
+
+# Uploaded product images (runtime data)
+/uploads/products/*
+!/uploads/products/.gitkeep
+
+# Environment / sensitive config
+# config.php contains DB credentials — include a safe example instead
+# config.php  ← intentionally NOT ignored so the project works out of the box
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+*.code-workspace
+
+# PHP error logs
+error_log
+*.log
+
+# Kiro spec tool internals
+/grocery-store-pos/.config.kiro

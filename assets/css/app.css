@@ -1,0 +1,451 @@
+/* =============================================================================
+   GroceryPOS – app.css
+   Global styles: sidebar, POS layout, status badges, print styles
+   ============================================================================= */
+
+/* ─── CSS Custom Properties ──────────────────────────────────────────────── */
+:root {
+    --sidebar-width: 240px;
+    --sidebar-collapsed-width: 64px;
+    --navbar-height: 56px;
+    --sidebar-bg: #212529;
+    --sidebar-link-color: #adb5bd;
+    --sidebar-link-hover-bg: rgba(255, 255, 255, 0.07);
+    --sidebar-link-active-bg: #198754;
+    --sidebar-link-active-color: #ffffff;
+    --pos-cart-width: 360px;
+    --transition-speed: 0.25s;
+}
+
+/* ─── Base / Reset ───────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding-top: var(--navbar-height); /* offset for fixed navbar */
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-size: 0.9rem;
+}
+
+/* ─── Page Wrapper ───────────────────────────────────────────────────────── */
+.pos-wrapper {
+    min-height: calc(100vh - var(--navbar-height));
+    position: relative;
+}
+
+/* ─── Sidebar ────────────────────────────────────────────────────────────── */
+.sidebar {
+    width: var(--sidebar-width);
+    min-height: calc(100vh - var(--navbar-height));
+    background-color: var(--sidebar-bg);
+    position: sticky;
+    top: var(--navbar-height);
+    overflow-y: auto;
+    overflow-x: hidden;
+    transition: width var(--transition-speed) ease;
+    flex-shrink: 0;
+}
+
+.sidebar-sticky {
+    position: sticky;
+    top: 0;
+}
+
+.sidebar-brand {
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+/* Sidebar nav links */
+.sidebar-link {
+    color: var(--sidebar-link-color) !important;
+    border-radius: 6px;
+    padding: 0.55rem 0.75rem;
+    display: flex;
+    align-items: center;
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+    white-space: nowrap;
+    overflow: hidden;
+    text-decoration: none;
+}
+
+.sidebar-link:hover {
+    background-color: var(--sidebar-link-hover-bg);
+    color: #fff !important;
+}
+
+.sidebar-link.active {
+    background-color: var(--sidebar-link-active-bg);
+    color: var(--sidebar-link-active-color) !important;
+    font-weight: 600;
+}
+
+.sidebar-link i {
+    font-size: 1.05rem;
+    flex-shrink: 0;
+    min-width: 22px;
+}
+
+/* Collapsed state — only show icons */
+.sidebar.sidebar-collapsed {
+    width: var(--sidebar-collapsed-width);
+}
+
+.sidebar.sidebar-collapsed .sidebar-link span,
+.sidebar.sidebar-collapsed .sidebar-brand span {
+    display: none;
+}
+
+/* ─── Main Content ───────────────────────────────────────────────────────── */
+.main-content {
+    min-width: 0; /* prevent flex overflow */
+    overflow-x: auto;
+}
+
+/* ─── POS Two-Column Layout ──────────────────────────────────────────────── */
+.pos-layout {
+    display: grid;
+    grid-template-columns: 1fr var(--pos-cart-width);
+    gap: 1rem;
+    min-height: calc(100vh - var(--navbar-height) - 3rem);
+}
+
+.pos-product-panel {
+    overflow-y: auto;
+}
+
+.pos-cart-panel {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 0.5rem;
+    border: 1px solid #dee2e6;
+    overflow: hidden;
+}
+
+.pos-cart-header {
+    background-color: #198754;
+    color: #fff;
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.pos-cart-items {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.5rem;
+}
+
+.pos-cart-footer {
+    border-top: 1px solid #dee2e6;
+    padding: 0.75rem;
+    background: #f8f9fa;
+}
+
+/* Cart item row */
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.25rem;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.cart-item:last-child {
+    border-bottom: none;
+}
+
+.cart-item-name {
+    flex: 1;
+    font-size: 0.85rem;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cart-item-qty {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.cart-item-qty .btn {
+    padding: 0.1rem 0.4rem;
+    font-size: 0.8rem;
+    line-height: 1.2;
+}
+
+.cart-item-qty input {
+    width: 44px;
+    text-align: center;
+    font-size: 0.85rem;
+    padding: 0.15rem 0.25rem;
+}
+
+.cart-item-total {
+    font-weight: 600;
+    font-size: 0.85rem;
+    min-width: 60px;
+    text-align: right;
+}
+
+/* POS product card */
+.product-card {
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+    height: 100%;
+}
+
+.product-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+.product-card .card-img-top {
+    height: 120px;
+    object-fit: cover;
+}
+
+.product-card .card-body {
+    padding: 0.5rem 0.6rem;
+}
+
+.product-card .card-title {
+    font-size: 0.82rem;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.product-card .product-price {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #198754;
+}
+
+.product-card .product-stock {
+    font-size: 0.75rem;
+    color: #6c757d;
+}
+
+/* ─── Status Badges ──────────────────────────────────────────────────────── */
+.badge-active,
+.status-active {
+    background-color: #198754;
+    color: #fff;
+}
+
+.badge-low-stock,
+.status-low_stock {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.badge-out-of-stock,
+.status-out_of_stock {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.badge-expiring-soon,
+.status-expiring_soon {
+    background-color: #fd7e14;
+    color: #fff;
+}
+
+/* Reusable status badge helper */
+.status-badge {
+    display: inline-block;
+    padding: 0.25em 0.6em;
+    border-radius: 0.375rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: capitalize;
+    white-space: nowrap;
+}
+
+.status-badge.active        { background-color: #d1e7dd; color: #0a3622; }
+.status-badge.low_stock     { background-color: #fff3cd; color: #664d03; }
+.status-badge.out_of_stock  { background-color: #f8d7da; color: #58151c; }
+.status-badge.expiring_soon { background-color: #ffe5d0; color: #6e2d00; }
+
+/* Transaction / Order status badges */
+.status-badge.pending    { background-color: #fff3cd; color: #664d03; }
+.status-badge.received   { background-color: #d1e7dd; color: #0a3622; }
+.status-badge.cancelled  { background-color: #f8d7da; color: #58151c; }
+
+/* ─── KPI / Stat Cards ───────────────────────────────────────────────────── */
+.stat-card {
+    border-left: 4px solid transparent;
+    border-radius: 0.5rem;
+}
+
+.stat-card.revenue  { border-left-color: #198754; }
+.stat-card.profit   { border-left-color: #0dcaf0; }
+.stat-card.orders   { border-left-color: #0d6efd; }
+.stat-card.alerts   { border-left-color: #ffc107; }
+
+.stat-card .stat-value {
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.stat-card .stat-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #6c757d;
+}
+
+/* ─── Tables ─────────────────────────────────────────────────────────────── */
+.table-hover tbody tr:hover {
+    background-color: rgba(25, 135, 84, 0.05);
+}
+
+/* ─── Loading Spinner Overlay ────────────────────────────────────────────── */
+#loadingOverlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.6);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+}
+
+#loadingOverlay.active {
+    display: flex;
+}
+
+/* ─── Toast Notifications ────────────────────────────────────────────────── */
+.toast-container {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 11000;
+}
+
+/* ─── Utility ────────────────────────────────────────────────────────────── */
+.cursor-pointer { cursor: pointer; }
+
+.text-peso::before {
+    content: '₱';
+}
+
+/* ─── Responsive: collapse sidebar on mobile ─────────────────────────────── */
+@media (max-width: 991.98px) {
+    .sidebar {
+        position: fixed;
+        top: var(--navbar-height);
+        left: 0;
+        z-index: 1040;
+        height: calc(100vh - var(--navbar-height));
+        transform: translateX(-100%);
+        transition: transform var(--transition-speed) ease;
+    }
+
+    .sidebar.sidebar-open {
+        transform: translateX(0);
+    }
+
+    .pos-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .pos-cart-panel {
+        order: -1; /* cart on top on mobile */
+    }
+}
+
+/* ─── Print / Receipt Styles ─────────────────────────────────────────────── */
+@media print {
+    /* Hide everything by default */
+    body > * {
+        display: none !important;
+    }
+
+    /* Show only the receipt target */
+    .receipt-print-area {
+        display: block !important;
+    }
+
+    /* Thermal-style receipt: 80mm width */
+    .receipt-container {
+        width: 80mm;
+        max-width: 80mm;
+        margin: 0 auto;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 11px;
+        color: #000;
+        background: #fff;
+    }
+
+    .receipt-container .receipt-header {
+        text-align: center;
+        border-bottom: 1px dashed #000;
+        padding-bottom: 6px;
+        margin-bottom: 6px;
+    }
+
+    .receipt-container .receipt-header h4 {
+        font-size: 14px;
+        font-weight: bold;
+        margin: 0 0 2px;
+    }
+
+    .receipt-container .receipt-header p {
+        margin: 0;
+        font-size: 10px;
+    }
+
+    .receipt-container table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .receipt-container table th,
+    .receipt-container table td {
+        padding: 2px 0;
+        font-size: 11px;
+    }
+
+    .receipt-container .receipt-totals {
+        border-top: 1px dashed #000;
+        margin-top: 6px;
+        padding-top: 6px;
+    }
+
+    .receipt-container .receipt-totals td {
+        font-size: 11px;
+    }
+
+    .receipt-container .receipt-totals .grand-total td {
+        font-weight: bold;
+        font-size: 12px;
+    }
+
+    .receipt-container .receipt-footer {
+        border-top: 1px dashed #000;
+        margin-top: 6px;
+        padding-top: 6px;
+        text-align: center;
+        font-size: 10px;
+    }
+
+    /* Hide non-receipt UI chrome */
+    .navbar,
+    .sidebar,
+    .no-print {
+        display: none !important;
+    }
+}
