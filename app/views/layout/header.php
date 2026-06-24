@@ -89,14 +89,12 @@ if (!empty($pageTitle)) {
 
         <div class="ms-auto d-flex align-items-center gap-2">
             <?php if (!empty($_SESSION['user_id'])): ?>
-                <!-- User dropdown (pure JS, no Bootstrap dependency) -->
-                <div class="dropdown" id="userDropdownWrap">
+                <!-- User dropdown -->
+                <div class="position-relative" id="userDropdownWrap">
                     <button
                         class="btn btn-success d-flex align-items-center gap-2"
                         type="button"
                         id="userDropdownBtn"
-                        aria-haspopup="true"
-                        aria-expanded="false"
                     >
                         <?php if (!empty($_SESSION['user_photo'])): ?>
                             <img
@@ -109,21 +107,23 @@ if (!empty($pageTitle)) {
                         <?php else: ?>
                             <i class="bi bi-person-circle fs-5"></i>
                         <?php endif; ?>
-                        <span class="d-none d-md-inline">
-                            <?= htmlspecialchars($_SESSION['user_name'] ?? 'User') ?>
-                        </span>
-                        <i class="bi bi-chevron-down ms-1 small"></i>
+                        <span class="d-none d-md-inline"><?= htmlspecialchars($_SESSION['user_name'] ?? 'User') ?></span>
+                        <i class="bi bi-chevron-down small"></i>
                     </button>
-                    <ul class="dropdown-menu dropdown-menu-end" id="userDropdownMenu"
-                        style="display:none; position:absolute; right:0; top:100%; z-index:9999; min-width:180px;">
+                    <ul id="userDropdownMenu"
+                        style="display:none;position:absolute;right:0;top:calc(100% + 4px);z-index:9999;min-width:200px;background:#fff;border:1px solid rgba(0,0,0,.15);border-radius:.375rem;padding:.5rem 0;box-shadow:0 .5rem 1rem rgba(0,0,0,.175);">
                         <li>
-                            <a class="dropdown-item" href="<?= BASE_URL ?>?module=account">
+                            <a style="display:block;padding:.4rem 1rem;color:#212529;text-decoration:none;"
+                               onmouseover="this.style.background='#f8f9fa'" onmouseout="this.style.background=''"
+                               href="<?= BASE_URL ?>?module=account">
                                 <i class="bi bi-gear me-2"></i>Account Settings
                             </a>
                         </li>
-                        <li><hr class="dropdown-divider"></li>
+                        <li><hr style="margin:.5rem 0;border:0;border-top:1px solid #e9ecef;"></li>
                         <li>
-                            <a class="dropdown-item text-danger" href="<?= BASE_URL ?>?module=auth&action=logout">
+                            <a style="display:block;padding:.4rem 1rem;color:#dc3545;text-decoration:none;"
+                               onmouseover="this.style.background='#f8f9fa'" onmouseout="this.style.background=''"
+                               href="<?= BASE_URL ?>?module=auth&action=logout">
                                 <i class="bi bi-box-arrow-right me-2"></i>Logout
                             </a>
                         </li>
@@ -133,29 +133,6 @@ if (!empty($pageTitle)) {
         </div>
     </div>
 </nav>
-
-<script>
-// Pure JS dropdown — runs after DOM is ready
-document.addEventListener('DOMContentLoaded', function() {
-    var btn  = document.getElementById('userDropdownBtn');
-    var menu = document.getElementById('userDropdownMenu');
-    if (!btn || !menu) return;
-
-    btn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        var isOpen = menu.style.display === 'block';
-        menu.style.display = isOpen ? 'none' : 'block';
-        btn.setAttribute('aria-expanded', String(!isOpen));
-    });
-
-    document.addEventListener('click', function(e) {
-        if (!btn.contains(e.target)) {
-            menu.style.display = 'none';
-            btn.setAttribute('aria-expanded', 'false');
-        }
-    });
-});
-</script>
 
 <!-- ─── Page wrapper (sidebar + main content) ─────────────────────────────── -->
 <div class="pos-wrapper d-flex">
