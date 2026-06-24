@@ -7,11 +7,7 @@
 --         purchase_order_items
 -- ============================================================
 
-CREATE DATABASE IF NOT EXISTS `grocerypos`
-    CHARACTER SET utf8mb4
-    COLLATE utf8mb4_unicode_ci;
-
-USE `grocerypos`;
+-- Database is created via cPanel. Import this file into your existing database.
 
 -- ─── Users / Account ─────────────────────────────────────────────────────────
 CREATE TABLE IF NOT EXISTS `users` (

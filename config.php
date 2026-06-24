@@ -6,14 +6,14 @@
 
 // ─── Database ────────────────────────────────────────────────────────────────
 define('DB_HOST',     'localhost');
-define('DB_NAME',     'grocerypos');
-define('DB_USER',     'root');
-define('DB_PASS',     '');
+define('DB_NAME',     'u907280979_pos');
+define('DB_USER',     'u907280979_russel');
+define('DB_PASS',     'jr_aquinO123');
 define('DB_CHARSET',  'utf8mb4');
 
 // ─── Application ─────────────────────────────────────────────────────────────
 define('APP_NAME',    'GroceryPOS');
-define('BASE_URL',    'http://localhost/grocerypos/');
+define('BASE_URL',    'https://pos-grocerystore.online/');
 
 // ─── File Paths ───────────────────────────────────────────────────────────────
 define('ROOT_PATH',    __DIR__ . DIRECTORY_SEPARATOR);
