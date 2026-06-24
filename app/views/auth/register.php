@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Grocery POS System – Create Account</title>
+    <title><?= htmlspecialchars(APP_NAME) ?> – Create Account</title>
 
     <!-- Bootstrap 5 CSS -->
     <link
@@ -64,7 +64,7 @@
                 <div class="brand-icon">
                     <i class="bi bi-cart3"></i>
                 </div>
-                <h4 class="fw-bold mb-0">Smart Grocery POS System</h4>
+                <h4 class="fw-bold mb-0"><?= htmlspecialchars(APP_NAME) ?></h4>
                 <p class="text-muted small mt-1">Create your account</p>
             </div>
 

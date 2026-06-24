@@ -91,7 +91,7 @@ if (!empty($pageTitle)) {
         <!-- Brand -->
         <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="<?= BASE_URL ?>">
             <i class="bi bi-cart3 fs-5"></i>
-            <span>Smart Grocery POS System</span>
+            <span><?= htmlspecialchars(APP_NAME) ?></span>
         </a>
 
         <div class="ms-auto d-flex align-items-center gap-2">
