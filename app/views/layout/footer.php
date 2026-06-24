@@ -2,24 +2,31 @@
 </main><!-- /.main-content -->
 </div><!-- /.pos-wrapper -->
 
+<!-- Bootstrap 5 JS Bundle — must load before app.js and other scripts -->
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc4s9bIOgUxi8T/jzmS5VKoZb7FE1LFjMuSVlLDLRmX"
+    crossorigin="anonymous"
+></script>
+
 <script>
     window.BASE_URL = '<?= BASE_URL ?>';
     window.CURRENCY = '<?= CURRENCY_SYMBOL ?>';
 </script>
 
-<!-- ─── Global App JS ─────────────────────────────────────────────────────── -->
+<!-- Global App JS -->
 <script src="<?= BASE_URL ?>assets/js/app.js"></script>
 
-<!-- ─── Sidebar toggle script ────────────────────────────────────────────── -->
+<!-- Sidebar toggle -->
 <script>
 (function () {
     'use strict';
-
     const toggleBtn = document.getElementById('sidebarToggleBtn');
     const sidebar   = document.getElementById('appSidebar');
 
     if (toggleBtn && sidebar) {
-        toggleBtn.addEventListener('click', function () {
+        toggleBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
             sidebar.classList.toggle('sidebar-open');
         });
         document.addEventListener('click', function (e) {
