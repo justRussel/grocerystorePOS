@@ -134,6 +134,6 @@ require_once __DIR__ . '/../../views/layout/sidebar.php';
     </div>
 </div>
 
-<script src="<?= BASE_URL ?>assets/js/dashboard.js"></script>
+<script src="<?= BASE_URL ?>assets/js/dashboard.js?v=<?= time() ?>"></script>
 
 <?php require_once __DIR__ . '/../../views/layout/footer.php'; ?>
