@@ -27,27 +27,31 @@ try {
     switch ($action) {
 
         case 'metrics':
-            // Today's revenue, profit, transactions
-            $stmt = $pdo->prepare(
+            // Today's revenue & transaction count — from transactions table only
+            $stmtT = $pdo->prepare(
                 'SELECT
-                    COALESCE(SUM(t.total_amount), 0) AS revenue,
-                    COUNT(DISTINCT t.id)              AS transactions,
-                    COALESCE(SUM((ti.selling_price_snapshot - ti.cost_price_snapshot) * ti.quantity), 0) AS profit
-                   FROM transactions t
-              LEFT JOIN transaction_items ti ON ti.transaction_id = t.id
-                  WHERE DATE(t.created_at) = CURDATE()'
+                    COALESCE(SUM(total_amount), 0) AS revenue,
+                    COUNT(*)                        AS transactions
+                   FROM transactions
+                  WHERE DATE(created_at) = CURDATE()'
             );
-            $stmt->execute();
-            $metrics = $stmt->fetch();
+            $stmtT->execute();
+            $metrics = $stmtT->fetch();
 
-            // Items sold today
-            $stmtI = $pdo->query(
-                'SELECT COALESCE(SUM(ti.quantity), 0) AS items_sold
+            // Today's profit & items sold — from transaction_items joined to transactions
+            $stmtP = $pdo->prepare(
+                'SELECT
+                    COALESCE(SUM((ti.selling_price_snapshot - ti.cost_price_snapshot) * ti.quantity), 0) AS profit,
+                    COALESCE(SUM(ti.quantity), 0) AS items_sold
                    FROM transaction_items ti
                    JOIN transactions t ON t.id = ti.transaction_id
                   WHERE DATE(t.created_at) = CURDATE()'
             );
-            $metrics['items_sold'] = (int) $stmtI->fetchColumn();
+            $stmtP->execute();
+            $profitRow = $stmtP->fetch();
+
+            $metrics['profit']     = $profitRow['profit'];
+            $metrics['items_sold'] = (int) $profitRow['items_sold'];
 
             echo json_encode(['success' => true, 'data' => $metrics]);
             break;
@@ -109,28 +113,41 @@ try {
 
         case 'monthly_chart':
             $year = (int) ($_GET['year'] ?? date('Y'));
-            $stmt = $pdo->prepare(
-                'SELECT
-                    MONTH(t.created_at) AS month,
-                    COALESCE(SUM(t.total_amount), 0) AS revenue,
-                    COALESCE(SUM((ti.selling_price_snapshot - ti.cost_price_snapshot) * ti.quantity), 0) AS profit
-                   FROM transactions t
-              LEFT JOIN transaction_items ti ON ti.transaction_id = t.id
-                  WHERE YEAR(t.created_at) = :year
-               GROUP BY MONTH(t.created_at)
-               ORDER BY MONTH(t.created_at)'
-            );
-            $stmt->execute([':year' => $year]);
-            $rows = $stmt->fetchAll();
 
-            // Fill all 12 months
-            $indexed = [];
-            foreach ($rows as $r) {
-                $indexed[(int) $r['month']] = $r;
-            }
+            // Revenue per month — from transactions only
+            $stmtR = $pdo->prepare(
+                'SELECT MONTH(created_at) AS month, COALESCE(SUM(total_amount), 0) AS revenue
+                   FROM transactions
+                  WHERE YEAR(created_at) = :year
+               GROUP BY MONTH(created_at)'
+            );
+            $stmtR->execute([':year' => $year]);
+            $revenueRows = $stmtR->fetchAll();
+
+            // Profit per month — from transaction_items joined to transactions
+            $stmtPr = $pdo->prepare(
+                'SELECT MONTH(t.created_at) AS month,
+                        COALESCE(SUM((ti.selling_price_snapshot - ti.cost_price_snapshot) * ti.quantity), 0) AS profit
+                   FROM transaction_items ti
+                   JOIN transactions t ON t.id = ti.transaction_id
+                  WHERE YEAR(t.created_at) = :year
+               GROUP BY MONTH(t.created_at)'
+            );
+            $stmtPr->execute([':year' => $year]);
+            $profitRows = $stmtPr->fetchAll();
+
+            $revenueByMonth = [];
+            foreach ($revenueRows as $r) $revenueByMonth[(int)$r['month']] = $r['revenue'];
+            $profitByMonth = [];
+            foreach ($profitRows as $r) $profitByMonth[(int)$r['month']] = $r['profit'];
+
             $chart = [];
             for ($m = 1; $m <= 12; $m++) {
-                $chart[] = $indexed[$m] ?? ['month' => $m, 'revenue' => 0, 'profit' => 0];
+                $chart[] = [
+                    'month'   => $m,
+                    'revenue' => $revenueByMonth[$m] ?? 0,
+                    'profit'  => $profitByMonth[$m]  ?? 0,
+                ];
             }
 
             echo json_encode(['success' => true, 'data' => $chart]);

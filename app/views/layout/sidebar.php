@@ -34,9 +34,9 @@ $navItems = [
 
         <!-- Store name -->
         <div class="sidebar-brand px-3 mb-3 d-flex align-items-center gap-2">
-            <i class="bi bi-shop text-success fs-5"></i>
+            <i class="bi bi-cart3 text-success fs-5"></i>
             <span class="text-white fw-semibold small text-truncate">
-                <?= htmlspecialchars($_SESSION['store_name'] ?? APP_NAME) ?>
+                Smart Grocery POS
             </span>
         </div>
 

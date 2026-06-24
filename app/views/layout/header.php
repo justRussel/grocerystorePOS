@@ -65,6 +65,13 @@ if (!empty($pageTitle)) {
 
     <!-- App CSS -->
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/app.css">
+
+    <!-- Bootstrap 5 JS Bundle (loaded early so dropdowns work in navbar) -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc4s9bIOgUxi8T/jzmS5VKoZb7FE1LFjMuSVlLDLRmX"
+        crossorigin="anonymous"
+    ></script>
 </head>
 <body>
 
@@ -82,8 +89,9 @@ if (!empty($pageTitle)) {
         </button>
 
         <!-- Brand -->
-        <a class="navbar-brand fw-bold" href="<?= BASE_URL ?>">
-            <i class="bi bi-cart3 me-1"></i><?= htmlspecialchars(APP_NAME) ?>
+        <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="<?= BASE_URL ?>">
+            <i class="bi bi-cart3 fs-5"></i>
+            <span>Smart Grocery POS System</span>
         </a>
 
         <div class="ms-auto d-flex align-items-center gap-2">

@@ -142,3 +142,63 @@ CREATE TABLE IF NOT EXISTS `purchase_order_items` (
     FOREIGN KEY (`po_id`)      REFERENCES `purchase_orders`(`id`) ON DELETE CASCADE,
     FOREIGN KEY (`product_id`) REFERENCES `products`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ─── Seed: Product Categories ─────────────────────────────────────────────────
+INSERT IGNORE INTO `categories` (`id`, `name`, `slug`) VALUES
+(1,  'Beverages',    'beverages'),
+(2,  'Snacks',       'snacks'),
+(3,  'Fruits',       'fruits'),
+(4,  'Vegetables',   'vegetables'),
+(5,  'Dairy',        'dairy'),
+(6,  'Bread & Bakery','bread-bakery'),
+(7,  'Canned Goods', 'canned-goods'),
+(8,  'Personal Care','personal-care');
+
+-- ─── Seed: Products ───────────────────────────────────────────────────────────
+INSERT IGNORE INTO `products`
+    (`id`, `barcode`, `name`, `category_id`, `cost_price`, `selling_price`, `stock_qty`, `low_stock_threshold`, `status`, `is_active`)
+VALUES
+-- C2 Beverages (Beverages - category 1)
+(1,  '4800888010011', 'C2 Apple Green Tea 230ml',     1,  12.00, 18.00, 100, 10, 'active', 1),
+(2,  '4800888010012', 'C2 Apple Green Tea 500ml',     1,  20.00, 28.00, 80,  10, 'active', 1),
+(3,  '4800888010021', 'C2 Lemon Green Tea 230ml',     1,  12.00, 18.00, 100, 10, 'active', 1),
+(4,  '4800888010022', 'C2 Lemon Green Tea 500ml',     1,  20.00, 28.00, 80,  10, 'active', 1),
+(5,  '4800888010031', 'C2 Original Green Tea 230ml',  1,  12.00, 18.00, 120, 10, 'active', 1),
+(6,  '4800888010032', 'C2 Original Green Tea 500ml',  1,  20.00, 28.00, 80,  10, 'active', 1),
+(7,  '4800888010041', 'C2 Classic (Yellow) 230ml',    1,  12.00, 18.00, 100, 10, 'active', 1),
+(8,  '4800888010042', 'C2 Classic (Yellow) 500ml',    1,  20.00, 28.00, 80,  10, 'active', 1),
+
+-- Piatos Snacks (Snacks - category 2)
+(9,  '4800016010011', 'Piatos Cheese 115g',            2,  22.00, 30.00, 60,  10, 'active', 1),
+(10, '4800016010012', 'Piatos BBQ 115g',               2,  22.00, 30.00, 60,  10, 'active', 1),
+(11, '4800016010013', 'Piatos Sour Cream & Onion 115g',2,  22.00, 30.00, 60,  10, 'active', 1),
+(12, '4800016010014', 'Piatos Chili & Cheese 115g',    2,  22.00, 30.00, 60,  10, 'active', 1),
+(13, '4800016010015', 'Piatos Garlic 115g',            2,  22.00, 30.00, 60,  10, 'active', 1),
+(14, '4800016010021', 'Piatos Cheese 55g',             2,  11.00, 15.00, 80,  15, 'active', 1),
+(15, '4800016010022', 'Piatos BBQ 55g',                2,  11.00, 15.00, 80,  15, 'active', 1),
+
+-- Fruits (Fruits - category 3)
+(16, NULL, 'Banana (Lakatan) per kg',  3,  40.00,  60.00, 50, 5, 'active', 1),
+(17, NULL, 'Banana (Saba) per kg',     3,  30.00,  45.00, 50, 5, 'active', 1),
+(18, NULL, 'Apple (Red) per piece',    3,  25.00,  40.00, 80, 5, 'active', 1),
+(19, NULL, 'Apple (Green) per piece',  3,  25.00,  40.00, 80, 5, 'active', 1),
+(20, NULL, 'Mango (Carabao) per kg',   3,  60.00,  90.00, 40, 5, 'active', 1),
+(21, NULL, 'Mango (Green) per kg',     3,  40.00,  65.00, 40, 5, 'active', 1),
+(22, NULL, 'Pineapple per piece',      3,  45.00,  70.00, 30, 5, 'active', 1),
+(23, NULL, 'Watermelon per kg',        3,  20.00,  35.00, 20, 3, 'active', 1),
+(24, NULL, 'Grapes (Red) per 500g',    3,  80.00, 120.00, 30, 5, 'active', 1),
+(25, NULL, 'Orange per piece',         3,  20.00,  35.00, 60, 5, 'active', 1),
+
+-- Vegetables (Vegetables - category 4)
+(26, NULL, 'Tomato per kg',            4,  30.00,  50.00, 40, 5, 'active', 1),
+(27, NULL, 'Onion (Red) per kg',       4,  50.00,  80.00, 40, 5, 'active', 1),
+(28, NULL, 'Onion (White) per kg',     4,  45.00,  70.00, 40, 5, 'active', 1),
+(29, NULL, 'Cabbage per head',         4,  35.00,  55.00, 30, 5, 'active', 1),
+(30, NULL, 'Carrots per kg',           4,  40.00,  65.00, 40, 5, 'active', 1),
+(31, NULL, 'Potato per kg',            4,  45.00,  70.00, 40, 5, 'active', 1),
+(32, NULL, 'Garlic per 100g',          4,  15.00,  25.00, 50, 5, 'active', 1),
+(33, NULL, 'Ginger per 100g',          4,  12.00,  20.00, 50, 5, 'active', 1),
+(34, NULL, 'Sitaw (String Beans) per bundle', 4, 20.00, 35.00, 30, 5, 'active', 1),
+(35, NULL, 'Kangkong per bundle',      4,  10.00,  18.00, 30, 5, 'active', 1),
+(36, NULL, 'Pechay per bundle',        4,  12.00,  20.00, 30, 5, 'active', 1),
+(37, NULL, 'Ampalaya (Bitter Gourd) per piece', 4, 15.00, 25.00, 25, 5, 'active', 1);
