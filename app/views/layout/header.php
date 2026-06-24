@@ -65,6 +65,12 @@ if (!empty($pageTitle)) {
 
     <!-- App CSS -->
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/app.css">
+
+    <!-- Global JS config — must be defined before any other scripts -->
+    <script>
+        window.BASE_URL = '<?= BASE_URL ?>';
+        window.CURRENCY = '<?= CURRENCY_SYMBOL ?>';
+    </script>
 </head>
 <body>
 

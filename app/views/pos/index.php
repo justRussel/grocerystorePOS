@@ -123,9 +123,4 @@ require_once __DIR__ . '/../../views/layout/sidebar.php';
     </div>
 </div>
 
-<script>
-    window.BASE_URL = '<?= BASE_URL ?>';
-    window.CURRENCY = '<?= CURRENCY_SYMBOL ?>';
-</script>
-
 <?php require_once __DIR__ . '/../../views/layout/footer.php'; ?>

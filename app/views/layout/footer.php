@@ -5,11 +5,6 @@
 <!-- Bootstrap 5 JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 
-<script>
-    window.BASE_URL = '<?= BASE_URL ?>';
-    window.CURRENCY = '<?= CURRENCY_SYMBOL ?>';
-</script>
-
 <script src="<?= BASE_URL ?>assets/js/app.js?v=<?= time() ?>"></script>
 
 <script>

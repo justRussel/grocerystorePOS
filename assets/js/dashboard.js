@@ -5,7 +5,7 @@
 (function () {
     'use strict';
 
-    const BASE = window.BASE_URL || '/grocerypos/';
+    const BASE = window.BASE_URL || '/';
     const CUR  = window.CURRENCY || '₱';
     let   monthlyChart = null;
 

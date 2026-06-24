@@ -5,7 +5,7 @@
 (function () {
     'use strict';
 
-    const BASE      = window.BASE_URL || '/grocerypos/';
+    const BASE      = window.BASE_URL || '/';
     const CUR       = window.CURRENCY || '₱';
     const PAGE_SIZE = 20;
     let   currentPage = 0;
