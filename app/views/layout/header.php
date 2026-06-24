@@ -89,12 +89,13 @@ if (!empty($pageTitle)) {
 
         <div class="ms-auto d-flex align-items-center gap-2">
             <?php if (!empty($_SESSION['user_id'])): ?>
-                <!-- User dropdown -->
-                <div class="dropdown">
+                <!-- User dropdown (pure JS, no Bootstrap dependency) -->
+                <div class="dropdown" id="userDropdownWrap">
                     <button
-                        class="btn btn-success dropdown-toggle d-flex align-items-center gap-2"
+                        class="btn btn-success d-flex align-items-center gap-2"
                         type="button"
-                        data-bs-toggle="dropdown"
+                        id="userDropdownBtn"
+                        aria-haspopup="true"
                         aria-expanded="false"
                     >
                         <?php if (!empty($_SESSION['user_photo'])): ?>
@@ -111,8 +112,10 @@ if (!empty($pageTitle)) {
                         <span class="d-none d-md-inline">
                             <?= htmlspecialchars($_SESSION['user_name'] ?? 'User') ?>
                         </span>
+                        <i class="bi bi-chevron-down ms-1 small"></i>
                     </button>
-                    <ul class="dropdown-menu dropdown-menu-end">
+                    <ul class="dropdown-menu dropdown-menu-end" id="userDropdownMenu"
+                        style="display:none; position:absolute; right:0; top:100%; z-index:9999; min-width:180px;">
                         <li>
                             <a class="dropdown-item" href="<?= BASE_URL ?>?module=account">
                                 <i class="bi bi-gear me-2"></i>Account Settings
@@ -130,6 +133,27 @@ if (!empty($pageTitle)) {
         </div>
     </div>
 </nav>
+
+<script>
+// Pure JS dropdown — no Bootstrap JS required
+(function() {
+    var btn  = document.getElementById('userDropdownBtn');
+    var menu = document.getElementById('userDropdownMenu');
+    if (!btn || !menu) return;
+
+    btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var isOpen = menu.style.display === 'block';
+        menu.style.display = isOpen ? 'none' : 'block';
+        btn.setAttribute('aria-expanded', !isOpen);
+    });
+
+    document.addEventListener('click', function() {
+        menu.style.display = 'none';
+        btn.setAttribute('aria-expanded', 'false');
+    });
+})();
+</script>
 
 <!-- ─── Page wrapper (sidebar + main content) ─────────────────────────────── -->
 <div class="pos-wrapper d-flex">

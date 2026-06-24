@@ -17,12 +17,12 @@
 <!-- Global App JS -->
 <script src="<?= BASE_URL ?>assets/js/app.js"></script>
 
-<!-- Sidebar toggle -->
+<!-- Sidebar toggle — pure JS -->
 <script>
 (function () {
     'use strict';
-    const toggleBtn = document.getElementById('sidebarToggleBtn');
-    const sidebar   = document.getElementById('appSidebar');
+    var toggleBtn = document.getElementById('sidebarToggleBtn');
+    var sidebar   = document.getElementById('appSidebar');
 
     if (toggleBtn && sidebar) {
         toggleBtn.addEventListener('click', function (e) {

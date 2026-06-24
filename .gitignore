@@ -30,5 +30,8 @@ Thumbs.db
 error_log
 *.log
 
+# Temporary fix scripts
+fix_data.sql
+
 # Kiro spec tool internals
 /grocery-store-pos/.config.kiro
