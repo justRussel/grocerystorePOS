@@ -19,17 +19,16 @@
 
 <!-- Sidebar toggle — pure JS -->
 <script>
-(function () {
-    'use strict';
+document.addEventListener('DOMContentLoaded', function() {
     var toggleBtn = document.getElementById('sidebarToggleBtn');
     var sidebar   = document.getElementById('appSidebar');
 
     if (toggleBtn && sidebar) {
-        toggleBtn.addEventListener('click', function (e) {
+        toggleBtn.addEventListener('click', function(e) {
             e.stopPropagation();
             sidebar.classList.toggle('sidebar-open');
         });
-        document.addEventListener('click', function (e) {
+        document.addEventListener('click', function(e) {
             if (window.innerWidth < 992
                 && !sidebar.contains(e.target)
                 && !toggleBtn.contains(e.target)) {
@@ -37,7 +36,7 @@
             }
         });
     }
-})();
+});
 </script>
 
 <?php if (!empty($extraScripts)) { echo $extraScripts; } ?>

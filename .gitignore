@@ -32,6 +32,7 @@ error_log
 
 # Temporary fix scripts
 fix_data.sql
+cleanup.php
 
 # Kiro spec tool internals
 /grocery-store-pos/.config.kiro

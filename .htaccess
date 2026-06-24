@@ -1,51 +1,18 @@
 Options -Indexes
 
-# ─── Set index file ───────────────────────────────────────────────────────────
 DirectoryIndex index.php
 
-# ─── URL Rewriting ───────────────────────────────────────────────────────────
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteBase /
 
-    # Allow direct access to existing files and directories
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-
-    # Route everything else through index.php
     RewriteRule ^(.*)$ index.php [L,QSA]
 </IfModule>
 
-# ─── Protect sensitive directories ───────────────────────────────────────────
-<IfModule mod_authz_core.c>
-    <DirectoryMatch "^.*/(app|grocery-store-pos)/">
-        Require all denied
-    </DirectoryMatch>
-</IfModule>
-
-# ─── PHP settings ────────────────────────────────────────────────────────────
 <IfModule mod_php.c>
     php_flag display_errors Off
     php_value upload_max_filesize 10M
     php_value post_max_size 10M
-    php_value max_execution_time 60
 </IfModule>
-
-# ─── Security headers ────────────────────────────────────────────────────────
-<IfModule mod_headers.c>
-    Header always set X-Content-Type-Options "nosniff"
-    Header always set X-Frame-Options "SAMEORIGIN"
-    Header always set X-XSS-Protection "1; mode=block"
-</IfModule>
-
-# ─── Deny access to dot files ─────────────────────────────────────────────────
-<FilesMatch "^\.">
-    Order allow,deny
-    Deny from all
-</FilesMatch>
-
-# ─── Deny direct access to config and SQL files ───────────────────────────────
-<FilesMatch "\.(sql|log|md|json)$">
-    Order allow,deny
-    Deny from all
-</FilesMatch>

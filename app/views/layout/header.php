@@ -135,8 +135,8 @@ if (!empty($pageTitle)) {
 </nav>
 
 <script>
-// Pure JS dropdown — no Bootstrap JS required
-(function() {
+// Pure JS dropdown — runs after DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
     var btn  = document.getElementById('userDropdownBtn');
     var menu = document.getElementById('userDropdownMenu');
     if (!btn || !menu) return;
@@ -145,14 +145,16 @@ if (!empty($pageTitle)) {
         e.stopPropagation();
         var isOpen = menu.style.display === 'block';
         menu.style.display = isOpen ? 'none' : 'block';
-        btn.setAttribute('aria-expanded', !isOpen);
+        btn.setAttribute('aria-expanded', String(!isOpen));
     });
 
-    document.addEventListener('click', function() {
-        menu.style.display = 'none';
-        btn.setAttribute('aria-expanded', 'false');
+    document.addEventListener('click', function(e) {
+        if (!btn.contains(e.target)) {
+            menu.style.display = 'none';
+            btn.setAttribute('aria-expanded', 'false');
+        }
     });
-})();
+});
 </script>
 
 <!-- ─── Page wrapper (sidebar + main content) ─────────────────────────────── -->
